@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.etc.plant.dao.BackDao">
+    <select id="getUser" resultType="com.etc.plant.entity.User">
+        select * from user
+    </select>
+    <select id="getRoleById" resultType="com.etc.plant.entity.Role">
+        select * from role where role_id = #{rid}
+    </select>
+    <delete id="deleteUser">
+        delete from user where user_id = #{id}
+    </delete>
+    <select id="getRole" resultType="com.etc.plant.entity.Role">
+        select * from role
+    </select>
+    <select id="getPlants" resultType="com.etc.plant.entity.Plants">
+        select * from plants
+    </select>
+    <select id="getMessage" resultType="com.etc.plant.entity.Message">
+        select * from message
+    </select>
+    <update id="updateRole">
+        update role set role_name = #{rname} where role_id = #{rid}
+    </update>
+    <delete id="deleteRole">
+        delete from role where role_id = #{rid}
+    </delete>
+    <insert id="addRole">
+        insert into role(role_name) values (#{rname})
+    </insert>
+    <update id="updatePlantState">
+        update plants set state = #{st} where plant_id = #{pid}
+    </update>
+    <delete id="deletePlant">
+        delete from plants where plant_id = #{pid}
+    </delete>
+    <update id="updatePlants">
+        update plants set sign = #{remove} where plant_id = #{pid}
+    </update>
+    <select id="sortPlant" resultType="com.etc.plant.entity.Plants">
+        select * from plants order by ${sort}
+    </select>
+    <insert id="upload" parameterType="com.etc.plant.entity.Plants">
+        insert into plants(plant_name, price, comment, pic, sign, count) values(#{plant_name},#{price},#{comment},#{pic},#{sign},#{count})
+    </insert>
+    <select id="getUserById" resultType="com.etc.plant.entity.User">
+        select * from user where user_id = #{uid}
+    </select>
+    <delete id="deleteMessage">
+        delete from message where message_id = #{mid}
+    </delete>
+    <select id="getComment" resultType="com.etc.plant.entity.Comment">
+        select * from comment
+    </select>
+    <select id="getPlantById" resultType="com.etc.plant.entity.Plants">
+        select * from plants where plant_id = #{pid}
+    </select>
+    <delete id="deleteComment">
+        delete from comment where comment_id = #{cid}
+    </delete>
+</mapper>

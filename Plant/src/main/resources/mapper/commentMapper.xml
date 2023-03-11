@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.etc.plant.dao.CommentDao">
+   <select id="getUid" resultType="com.etc.plant.entity.User">
+       select * from user where user_name = #{uname} and user_email = #{email}
+   </select>
+    <insert id="addComment" parameterType="com.etc.plant.entity.Comment">
+        insert into comment(user_id, comment, comment_pic, plant_id) values(#{user_id}, #{comment}, #{comment_pic}, #{plant_id})
+    </insert>
+    <select id="getOrder" resultType="com.etc.plant.entity.Order">
+        select * from orders
+    </select>
+    <select id="judgeOrderInfo" resultType="com.etc.plant.entity.OrderInfo">
+        select * from orderinfo where orderId = #{oid} and goodsId = #{pid}
+    </select>
+    <select id="judgeComment" parameterType="com.etc.plant.entity.Comment" resultType="com.etc.plant.entity.Comment">
+        select * from comment where user_id = #{user_id} and plant_id = #{plant_id}
+    </select>
+    <select id="getComment" resultType="com.etc.plant.entity.Comment">
+        select * from comment where plant_id = #{pid}
+    </select>
+    <select id="getUser" resultType="com.etc.plant.entity.User">
+        select * from user where user_id = #{uid}
+    </select>
+</mapper>

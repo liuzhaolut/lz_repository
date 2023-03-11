@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.etc.plant.dao.RegionDao">
+    <select id="findByLevel" resultType="com.etc.plant.entity.Region">
+        SELECT * FROM cn_region WHERE LEVEL = #{level}
+    </select>
+    <select id="findByCode" resultType="com.etc.plant.entity.Region">
+        SELECT * FROM cn_region WHERE CODE = #{code}
+    </select>
+    <select id="findByParentCode" resultType="com.etc.plant.entity.Region">
+        SELECT * FROM cn_region WHERE SUPERIOR_CODE = #{code}
+    </select>
+</mapper>

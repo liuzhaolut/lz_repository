@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.etc.plant.dao.PlantDao">
+    <select id="getTodayPlant" resultType="com.etc.plant.entity.Plants">
+        select * from plants where sign = '今日特价'
+    </select>
+    <select id="getGoodPlant" resultType="com.etc.plant.entity.Plants">
+        select * from plants where sign = '畅销'
+    </select>
+    <select id="getNewPlant" resultType="com.etc.plant.entity.Plants">
+        select * from plants where sign = '新品'
+    </select>
+    <select id="getTopPlant" resultType="com.etc.plant.entity.Plants">
+        select * from plants where sign = '最受好评'
+    </select>
+    <select id="getPlantDetail" resultType="com.etc.plant.entity.Plants">
+        select * from plants where plant_id = ${pid}
+    </select>
+    <select id="getPage" resultType="int">
+        select count(*) from plants
+    </select>
+    <select id="getPlant" resultType="com.etc.plant.entity.Plants">
+        select * from plants
+        <where>
+            <if test="s != null">
+                and sign = #{s}
+            </if>
+        </where>
+        limit ${page},${pro}
+    </select>
+</mapper>

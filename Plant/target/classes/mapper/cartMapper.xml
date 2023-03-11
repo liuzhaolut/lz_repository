@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.etc.plant.dao.CartDao">
+    <select id="judgeColl" resultType="com.etc.plant.entity.Collection">
+        select * from collection where plant_id = ${pid} and user_id = ${uid}
+    </select>
+    <insert id="addCollection">
+        insert into collection(user_id, plant_id, colour, size) values (#{uid}, #{pid}, #{colour}, #{size})
+    </insert>
+    <select id="getCollection" resultType="com.etc.plant.entity.Collection">
+        select * from collection where user_id = #{uid}
+    </select>
+    <select id="getCollectionById" resultType="com.etc.plant.entity.Collection">
+        select * from collection where collection_id = #{cid}
+    </select>
+    <delete id="deleteColl">
+        delete from collection where collection_id = #{cid}
+    </delete>
+    <select id="getUserPlant" resultType="com.etc.plant.entity.Plants">
+        select * from plants where plant_id = #{pid}
+    </select>
+    <select id="getShopCar" resultType="com.etc.plant.entity.Carts">
+        select * from cart where user_id = #{uid}
+    </select>
+    <select id="getCartById" resultType="com.etc.plant.entity.Carts">
+        select * from cart where cart_id = #{cid}
+    </select>
+    <insert id="addCart">
+        insert into cart(user_id, plant_id, colour, size, isCheck, cartNum) values(#{uid}, #{pid}, #{colour}, #{size}, 0, 1)
+    </insert>
+    <select id="judgeCart" resultType="com.etc.plant.entity.Carts">
+        select * from cart where user_id = #{uid} and plant_id = #{pid}
+    </select>
+    <select id="judgeCartById" resultType="com.etc.plant.entity.Carts">
+        select * from cart where cart_id = #{cid}
+    </select>
+    <update id="updateNum">
+        update cart set cartNum = cartNum + 1 where user_id = #{uid} and plant_id = #{pid}
+    </update>
+    <update id="updateCartNum">
+        update cart set cartNum = cartNum + #{type} where user_id = #{uid} and plant_id = #{pid}
+    </update>
+    <update id="cartCheck">
+        update cart set isCheck = #{isCheck} where user_id = #{uid} and plant_id = #{pid}
+    </update>
+    <select id="getCartByMore" resultType="com.etc.plant.entity.Carts">
+        select * from cart where user_id = #{uid} and plant_id = #{pid}
+    </select>
+    <delete id="deleteCar">
+        delete from cart where cart_id = #{cid}
+    </delete>
+    <select id="judgeCard" resultType="com.etc.plant.entity.Card">
+        select * from card where user_id = #{uid} and card_number = #{card}
+    </select>
+    <select id="getCardId" resultType="int">
+        select card_id from card where card_number = #{card}
+    </select>
+    <select id="getAddressId" resultType="int">
+        select Id from address where userAddress = #{add} and userId = #{uid}
+    </select>
+    <insert id="addAddress" parameterType="com.etc.plant.entity.Address">
+        insert into address(userId, userName, userPhone, provinceid, cityid, areaId, streetId, userAddress, createTime, zipCode)
+        values (#{userId}, #{userName}, #{userPhone}, #{provinceId}, #{cityId}, #{areaId}, #{streetId}, #{userAddress}, now(), #{zipCode})
+    </insert>
+    <update id="updateCount">
+        update card set monery = monery - #{sum} where card_id = #{cardId}
+    </update>
+    <update id="updatePidCount">
+        update plants set count = count - #{count} where plant_id = #{pid}
+    </update>
+    <delete id="removeCar">
+        delete from cart where user_id = #{uid} and plant_id = #{pid}
+    </delete>
+    <insert id="addOrder">
+        insert into orders(userId, status, money, paymentId, transportId, addressId, isAppraise, createTime, deliveryTime)
+        values (#{userId}, 1, #{money}, #{paymentId}, 1, #{addressId}, 0, now(), #{deliveryTime})
+    </insert>
+    <select id="getAddressUser" resultType="com.etc.plant.entity.Address">
+        select * from address where userAddress = #{add} and userId = #{uid}
+    </select>
+    <select id="getOid" parameterType="com.etc.plant.entity.Order" resultType="int">
+        select  orderId from orders where userId = #{userId} and paymentId = #{paymentId} and addressId = #{addressId} and money = #{money}
+    </select>
+    <insert id="addOrderInfo" parameterType="com.etc.plant.entity.OrderInfo">
+        insert into orderinfo(orderId, goodsId, goodsNum, goodsPrice, goodsName, goodsImg) value(#{orderId}, #{goodsId}, #{goodsNum}, #{goodsPrice}, #{goodsName}, #{goodsImg})
+    </insert>
+    <select id="getCart" resultType="com.etc.plant.entity.Carts">
+        select * from cart
+    </select>
+</mapper>
